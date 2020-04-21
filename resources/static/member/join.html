@@ -70,16 +70,15 @@ footer {
 </style>
 </head>
 <body>
-<h2> 홈페이지 </h2>
 <header>
-  <h2>Cities</h2>
+  <h2>회원 가입</h2>
 </header>
 
 <section>
   <nav>
     <ul>
       <li><a id="a-first" href="#">Join</a></li>
-      <li><a id="a-second" href="index.html">Login</a></li>
+      <li><a id="a-second" href="../index.html">Login</a></li>
       <li><a id="a-third" href="#">....</a></li>
     </ul>
   </nav>
@@ -91,14 +90,14 @@ footer {
    	<label>ID</label><br>
    	<input id="userid" type="text"/><br>
    	<label>PASSWORD</label><br>
-   	<input id="passwd" type="text"/><br>
+   	<input id="password" type="text"/><br>
    	<label>SSN</label><br>
    	<input id="ssn" type="text"><br>
    	<label>ADDRESS</label><br>
-   	<input id="addr" type="text"><br><br>
+   	<input id="address" type="text"><br><br>
    	<input id="join-button" type="button" value="회원가입">
    	<input id="cancel-button" type="button" value="취소">
-   	
+   		
    </form>
   </article>
 </section>
@@ -106,35 +105,40 @@ footer {
 <footer>
   <p>Footer</p>
 </footer>
-<script type="text/javascript">
 
-/* $('#a-first').click(function(){
-	alert('London 클릭')
+<script type="text/javascript">
+$('#a-first').click(function(){
+	
 })
 $('#a-second').click(function(){
-	alert('Tokyo 클릭')
+	
 })
 $('#a-third').click(function(){
-	alert('London 클릭')
-}) */
+	
+})
+
 $('#join-button').click(function(){
-	let member = {name:$('#name').val(),
-		userid: $('#userid').val(),
-		passwd: $('#passwd').val(),
-		ssn: $('#ssn').val(),
-		addr: $('#addr').val()}
-	alert('입력된 주민번호 : '+ member.ssn)
 	$.ajax({
-		url: '/join',
+		url: '/member/join',
 		type: 'post',
-		data: JSON.stringify(member),
+		data: JSON.stringify(
+				{name: $('#name').val(),
+				userid: $('#userid').val(),
+				password: $('#password').val(),
+				ssn: $('#ssn').val(),
+				address: $('#address').val()}),
 		dataType: 'json',
 		contentType: 'application/json',
-		success: function(returnMember){
-			alert(returnMember.name+'님 회원가입 성공 !!')
+		success: function(message){
+			if(message === 'SUCCESS'){
+				location.href="../index.html"
+		
+			}else {
+				location.href="join.html"
+			}
 		},
 		error: function(){
-			alert('회원가입 실패')
+			alert('Networking Error')
 		}
 		
 	})
