@@ -19,7 +19,7 @@ public class LottoController {
 	@PostMapping("/buy")
 	public Messenger buy(@RequestBody Lotto lotto) {
 		int current = lottoService.count();
-		lottoService.add(lotto);
+		lottoService.add(lotto); //[0],[1],[2],[3],[4]
 		System.out.println(lottoService.win(lotto));
 		return (lottoService.count() == current+1)? Messenger.SUCCESS : Messenger.FAIL;		
 		

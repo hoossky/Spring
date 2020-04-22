@@ -138,11 +138,12 @@ footer {
 			contentType : 'application/json',
 			
 			success : d => {
+				alert("결")
 				$('#result').html('<h3> 등 수 : '+ d +'</h3>')
 			},
 			
 			error : (req, x, err) => {
-				alert(req.status+"\n"+req.responseText+"\n"+error)
+				alert(req.status+"\n"+req.responseText+"\n"+err)
 				
 			}
 		})
