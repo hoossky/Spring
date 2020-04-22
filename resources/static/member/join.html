@@ -70,6 +70,7 @@ footer {
 </style>
 </head>
 <body>
+
 <header>
   <h2>회원 가입</h2>
 </header>
@@ -79,7 +80,6 @@ footer {
     <ul>
       <li><a id="a-first" href="#">Join</a></li>
       <li><a id="a-second" href="../index.html">Login</a></li>
-      <li><a id="a-third" href="#">....</a></li>
     </ul>
   </nav>
   
@@ -97,7 +97,7 @@ footer {
    	<input id="address" type="text"><br><br>
    	<input id="join-button" type="button" value="회원가입">
    	<input id="cancel-button" type="button" value="취소">
-   		
+   	
    </form>
   </article>
 </section>
@@ -105,47 +105,37 @@ footer {
 <footer>
   <p>Footer</p>
 </footer>
-
-<script type="text/javascript">
-$('#a-first').click(function(){
-	
-})
-$('#a-second').click(function(){
-	
-})
-$('#a-third').click(function(){
-	
-})
-
-$('#join-button').click(function(){
+<script>
+$('#join-button').click(e => {
+	e.preventDefault()
 	$.ajax({
 		url: '/member/join',
 		type: 'post',
 		data: JSON.stringify(
-				{name: $('#name').val(),
+				{name:$('#name').val(),
 				userid: $('#userid').val(),
 				password: $('#password').val(),
 				ssn: $('#ssn').val(),
 				address: $('#address').val()}),
 		dataType: 'json',
 		contentType: 'application/json',
-		success: function(message){
-			if(message === 'SUCCESS'){
+		success: d => {
+			if(d === 'SUCCESS'){
 				location.href="../index.html"
-		
-			}else {
+			}else{
 				location.href="join.html"
 			}
 		},
-		error: function(){
-			alert('Networking Error')
+		error: (request,status,error)=>{
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
 		}
 		
 	})
 	
 		
 })
-$('#cancel-button').click(function(){
+$('#cancel-button').click(e => {
+	e.preventDefault()
 	alert('취소 버튼 클릭')
 })
 </script>

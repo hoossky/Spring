@@ -1,6 +1,10 @@
 package com.bit.web.grade;
 
+import org.springframework.stereotype.Service;
 
+import com.bit.web.util.Credit;
+
+@Service
 public class GradeServiceImpl implements GradeService {
 
 	private Grade[] grades;
@@ -25,28 +29,41 @@ public class GradeServiceImpl implements GradeService {
 	public Grade[] list(Grade grade) {
 		return grades;
 	}
-	@Override
-	public Grade detail(Grade grade) {
-		// TODO Auto-generated method stub
-		return null;
+	private int total(String userid) {
+		int total = 0;
+		for(int i = 0; i<count; i++) {
+			if(userid.equals(grades[i].getUserid())) {
+				total = Integer.parseInt(grades[i].getKorean())
+						+ Integer.parseInt(grades[i].getEnglish())
+						+ Integer.parseInt(grades[i].getMath())
+						+ Integer.parseInt(grades[i].getJava());
+			}
+		}
+		return total;
 	}
-	@Override
-	public int total(Grade grade) {
+	
+	private int average(String userid) {
 		
-		int korean = Integer.parseInt(grade.getKorean());
-		int english = Integer.parseInt(grade.getEnglish());
-		int math = Integer.parseInt(grade.getMath());
-		int java = Integer.parseInt(grade.getJava());
-		
-		return korean+english+math+java;
-		
-	}
-	@Override
-	public int average(Grade grade) {
-
-		return total(grade)/3;
+		return total(userid)/4;
 		
 	}
+	
+	public Credit detail(String userid) {
+		Credit result = null;
+						
+		switch(average(userid)/10) {
+		case 10: case 9 : result = Credit.A; break;
+		case 8 : result = Credit.B; break;
+		case 7 : result = Credit.C; break;
+		case 6 : result = Credit.D; break;
+		case 5 : result = Credit.E; break;
+		default : result = Credit.F; break;
+		}
+		
+		return result;
+	}
+	
+	
 	@Override
 	public void update(Grade grade) {
 		// TODO Auto-generated method stub

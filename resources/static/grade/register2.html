@@ -70,74 +70,50 @@ footer {
 </style>
 </head>
 <body>
-
 <header>
-  <h2>로그인</h2>
+  <h2>성적 입력</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-      <li><a id="join_a" >Join</a></li>
-      <li><a id="login_a">Login</a></li>
+    
     </ul>
   </nav>
   
   <article>
    <form action="#">
-   	<label>ID </label> <br>
-   	<input id="userid" type="text"> <br>
-   	<label>PASSWORD</label><br>
-   	<input id="password" type="text"><br><br>
-   	<input id="login-button" type="button" value="로그인">
-   	<input id="cancel-button" type="button" value="취소">
-   	
+   	<label>ID</label><br>
+   	<input id="userid" type="text"/><br>
+   	<label>KOREAN </label> <br>
+   	<input id="korean" type="text"/> <br>
+   	<label>ENGLISH</label><br>
+   	<input id="english" type="text"/><br>
+   	<label>MATH</label><br>
+   	<input id="math" type="text"><br>
+   	<label>JAVA</label><br>
+   	<input id="java" type="text"><br><br>
+   	<input id="register-button" type="button" value="점수 등록">
+   	<input id="credit-button" type="button" value="학점 보기">
    </form>
+   <div id = "result"></div>
   </article>
 </section>
 
 <footer>
   <p>Footer</p>
 </footer>
-<script type="text/javascript">
-$('#join_a')
-	.css('cursor','pointer')
-	.click(e=>{
-		e.preventDefault()
-		location.href = "member/join.html"
-})
-$('#login_a')
-	.css('cursor','pointer')
-	.click(e=>{
-		e.preventDefault()
-		location.href = "index.html"
-})
-$('#login-button').click(e =>{
-	e.preventDefault()
-	$.ajax({
-		url: '/member/login',
-		type: 'post',
-		data: JSON.stringify(
-				{userid: $('#userid').val(),
-				 password: $('#password').val()}),
-		dataType: 'json',
-		contentType: 'application/json',
-		success : d => {
-			if(d === 'SUCCESS'){
-				location.href = "lotto/buy.html"
-			}else{
-				alert('다시 로그인 해주세요')
-				location.href = "index.html"
-			}
-		},
-		error: (request,status,error)=>{
-			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
-		}
-	})
-})
-$('#cancel-button').click(function(){
+
+	<script type="text/javascript">
+	$('#register-button').click(function()){
+		$.ajax({
+			url: '',
+			type: '',
+			data: '',
+			
+		})
+	}
 	
-})
-</script>
+	</script>
 </body>
 </html>

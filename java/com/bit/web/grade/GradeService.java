@@ -1,14 +1,13 @@
 package com.bit.web.grade;
 
+import com.bit.web.util.Credit;
 
 public interface GradeService {
 	
 	public void add(Grade grade);
-	public Grade[] list(Grade grade);
-	public Grade detail(Grade grade);
 	public int count();
-	public int total(Grade grade);
-	public int average(Grade grade);
+	public Grade[] list(Grade grade);
+	public Credit detail(String userid);
 	public void update(Grade grade);
 	public void delete(Grade grade);
 

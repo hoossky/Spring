@@ -104,6 +104,29 @@ footer {
 </footer>
 
 <script type="text/javascript">
+$('#register-button').click(function(){
+	$.ajax({
+		url: '/grade/record',
+		type: 'post',
+		data: JSON.stringify(
+				{userid: $('#userid').val(),
+				korean: $('#korean').val(),
+				english: $('#english').val(),
+				math: $('#math').val(),
+				java: $("#java").val()}),
+		dataType: 'json',
+		contentType: 'application/json',
+	
+		success: function(){
+			alert()
+		}
+		error: function(){
+		alert('다시 입력해주세요')
+		
+		}
+	})
+
+})
 
 </script>
 </body>
