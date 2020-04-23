@@ -72,21 +72,16 @@ footer {
 <body>
 
 <header>
-  <h2>&#127752; 로그인 &#127752;</h2>
+  <h2>사용자 로그인</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-      <li><a id="join_a" >관리자 등록</a></li>
-      <li><a id="login_a">관리자 접속</a></li>
-      <li><a id="signup_a" >사용자 가입</a></li>
-      <li><a id="signin_a">사용자 로그인</a></li>
+      <li><a id="home_a">홈으로</a></li>
+      <li><a id="a-first" href="signup.html">회원 가입</a></li>
     </ul>
   </nav>
-  
-  
-  
   
   <article>
    <form action="#">
@@ -94,8 +89,8 @@ footer {
    	<input id="userid" type="text"> <br>
    	<label>PASSWORD</label><br>
    	<input id="password" type="text"><br><br>
-   	<input id="login-button" type="button" value="로그인">
-   	<input id="cancel-button" type="button" value="취소">
+   	<input id="login_button" type="button" value="로그인">
+   	<input id="cancel_button" type="button" value="취소">
    	
    </form>
   </article>
@@ -104,58 +99,42 @@ footer {
 <footer>
   <p>Footer</p>
 </footer>
-<script type="text/javascript">
-$('#join_a')
-	.css('cursor','pointer')
-	.click(e=>{
-		e.preventDefault()
-		location.href = "member/join.html" 
-})
-$('#login_a')
-	.css('cursor','pointer')
-	.click(e=>{
-		e.preventDefault()
-		location.href = "index.html"
-})
-$('#signup_a')
+<script>
+$('#home_a')
 	.css('cursor', 'pointer')
 	.click( e => {
 		e.preventDefault()
-		location.href = "user/signup.html" 
-})
-$('#signin_a')
-	.css('cursor', 'pointer')
-	.click( e => {
-		e.preventDefault()
-		location.href = "user/signin.html"
+		location.href = "../index.html"
 	})
-	
-$('#login-button').click(e =>{
+$('#login_button').click( e => {
 	e.preventDefault()
 	$.ajax({
-		url: '/member/login',
-		type: 'post',
-		data: JSON.stringify(
-				{userid: $('#userid').val(),
-				 password: $('#password').val()}),
-		dataType: 'json',
-		contentType: 'application/json',
+		url : '/user/signin',
+		type : 'post',
+		data : JSON.stringify({
+			userid : $('#userid').val(),
+			password : $('#password').val()}),
+		dataType : 'json',
+		contentType : 'application/json',
+		
 		success : d => {
-			if(d === 'SUCCESS'){
-				location.href = "lotto/buy.html"
-			}else{
-				alert('다시 로그인 해주세요')
-				location.href = "index.html"
+			if(d.messenger === 'SUCCESS'){ //d.key 값(user, messenger)
+				location.href = "mypage.html"
+			}else {
+				location.href = "signin.html"
 			}
 		},
-		error: (request,status,error)=>{
-			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
+		error : (req, x, err) => {
+			alert(req.status + "\n" + req.responseText + "\n" + err) 
 		}
+		
 	})
+	
 })
-$('#cancel-button').click( e => {
+$('#cancel_button').click ( e => {
 	e.preventDefault()
 })
+
 </script>
 </body>
 </html>

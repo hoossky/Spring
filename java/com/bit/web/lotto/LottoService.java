@@ -8,5 +8,5 @@ public interface LottoService {
 	public int count();
 	public Ranking detail(String userid);
 	public String[] win(Lotto lotto);
-
+	public int cal(Lotto lotto);
 }

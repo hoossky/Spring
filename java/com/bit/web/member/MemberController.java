@@ -21,6 +21,7 @@ public class MemberController {
 		int current = memberService.count();
 		memberService.add(member);
 		System.out.println(member);
+		System.out.println(current);
 		return(memberService.count() == (current + 1))? Messenger.SUCCESS : Messenger.FAIL;
 	}
 	@PostMapping("/login")
@@ -46,13 +47,11 @@ public class MemberController {
 	@PutMapping("/update")
 	public Member update(@RequestBody Member member) {
 		Member returnUpdate = new Member();
-		memberService = new MemberServiceImpl();
 		return returnUpdate;
 	}
 	@DeleteMapping("/delete")
 	public Member delete(@RequestBody Member member) {
 		Member returnDelete = new Member();
-		memberService = new MemberServiceImpl();
 		return returnDelete;
 	}
 }
