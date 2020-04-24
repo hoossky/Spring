@@ -20,7 +20,6 @@ public class LottoController {
 	public Messenger buy(@RequestBody Lotto lotto) {
 		int current = lottoService.count();
 		lottoService.add(lotto); //[0],[1],[2],[3],[4]
-		System.out.println(lotto);
 		return (lottoService.count() == current + 1)? Messenger.SUCCESS : Messenger.FAIL;		
 		
 	}

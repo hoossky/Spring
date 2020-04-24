@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User detail(String userid) {
-		
-		return (User) map.get(userid); //다운 캐스팅
+		User t = (User) map.get(userid); //다운 캐스팅
+		return t;
 	}
 
 	@Override
@@ -47,11 +47,17 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void update(User user) {
-		// TODO Auto-generated method stub
-		
+	public boolean update(User user) {
+		map.replace(user.getUserid(), user);
+		return true;
 	}
 
+	@Override
+	public boolean remove(String userid) {
+		map.remove(userid);
+		return true;
+	}
+	
 	@Override
 	public void delete(User user) {
 		// TODO Auto-generated method stub

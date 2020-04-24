@@ -119,6 +119,7 @@ $('#login_button').click( e => {
 		
 		success : d => {
 			if(d.messenger === 'SUCCESS'){ //d.key 값(user, messenger)
+				sessionStorage.setItem('userid',d.user.userid)
 				location.href = "mypage.html"
 			}else {
 				location.href = "signin.html"

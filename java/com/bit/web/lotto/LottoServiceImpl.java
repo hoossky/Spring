@@ -10,7 +10,7 @@ public class LottoServiceImpl implements LottoService {
 	private int count;
 	
 	public LottoServiceImpl() {
-		lottos = new Lotto[6];
+		lottos = new Lotto[5];
 		count = 0;
 	}
 
@@ -36,21 +36,19 @@ public class LottoServiceImpl implements LottoService {
 		
 		String num = lotto.getLotto();
 		String[] nums = num.split(",");
-		System.out.println(nums);
 		return nums;
 		
 		
 	}
 	
-	public int cal(Lotto lotto) {
+	public int[] cal(Lotto lotto) {
 		Random random = new Random();
-		int number = random.nextInt(45)+1;
- 
-		for(int i = 0; i<count; i++) {
-//			lottos[i] = ;
-			
+		int[] numbers = new int[6];
+		 
+ 		for(int i = 0; i < lottos.length; i++) {
+			numbers[i] = random.nextInt(45)+1;
 		}
-		return number;
+		return numbers;
 	}
 
 

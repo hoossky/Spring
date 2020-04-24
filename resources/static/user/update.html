@@ -14,7 +14,7 @@
       <div class="py-5 text-center">
       <div style="height: 50px"></div>
         <img class="d-block mx-auto mb-4" src="https://image.flaticon.com/icons/svg/1665/1665593.svg" alt="" width="72" height="72">
-        <h2>마이 페이지</h2>
+        <h2>수정 페이지</h2>
       </div>
 
       <div class="row">
@@ -24,9 +24,9 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="name">이름</label>
-                <nav aria-label="breadcrumb">
-				  <ol class="breadcrumb"><li id="name" class="breadcrumb-item active" aria-current="page"> </li></ol>
-			    </nav>
+                <div class="input-group mb-3">
+				  <input id="name" type="text" class="form-control" aria-describedby="basic-addon1">
+				</div>
               </div>
             </div>
 
@@ -38,11 +38,11 @@
             </div>
             <div class="mb-3">
               <label for="address">주소</label>
-              <nav aria-label="breadcrumb">
-				  <ol class="breadcrumb"><li id="address" class="breadcrumb-item active" aria-current="page"></li></ol>
-			    </nav>
+              <div class="input-group mb-3">
+				  <input id="address" type="text" class="form-control"  aria-describedby="basic-addon1">
+				</div>
             </div>
-            <div class="mb-3">
+           <div class="mb-3">
               <label for="ssn">주민등록번호</label>
               <nav aria-label="breadcrumb">
 				  <ol class="breadcrumb"><li id="ssn" class="breadcrumb-item active" aria-current="page"></li></ol>
@@ -50,11 +50,14 @@
             </div>
            <div class="mb-3">
               <label for="password">비밀번호</label>
-              <nav aria-label="breadcrumb">
-				  <ol class="breadcrumb"><li id="password" class="breadcrumb-item active" aria-current="page"></li></ol>
-			    </nav>
+              <div class="input-group mb-3">
+				  <input id="password" type="text" class="form-control" aria-describedby="basic-addon1">
+				</div>
             </div>
-            <button id="update_button" class="btn btn-primary btn-lg btn-block" type="submit">정보 수정하기</button>
+            <div style="height: 20px"></div>
+            <button id="confirm_button" class="btn btn-success btn-lg btn-block" type="submit">수정 하기</button>
+            <button id="cancel_button" class="btn btn-warning btn-lg btn-block" type="submit">수정 취 소</button>
+            <button id="remove_button" class="btn btn-danger btn-lg btn-block" type="submit">회원 탈퇴</button>
           </form>
         </div>
       </div>
@@ -93,17 +96,86 @@
           });
         }, false);
       })();
+      
       $.getJSON('/user/detail/' + sessionStorage.getItem('userid'), d => {
-    	  $('#name').text(d.name)
+    	  $('#name').val(d.name)
     	  $('#userid').text(d.userid)
-    	  $('#address').text(d.address)
+    	  $('#address').val(d.address)
     	  $('#ssn').text(d.ssn)
-    	  $('#password').text(d.password)
-      })
-     $('#update_button').click( e => {
+    	  $('#password').val(d.password)
+
+    	  const name = $('#name').val() //변경 전 항목을 담아 두고 비교
+    	  const address = $('#address').val() 
+    	  const password = $('#password').val()
+    	  alert('>>> 수정 전 정보'+'\n name : '+name+'\n address : '+address+'\n password : '+password)
+    	  
+    	  $('#confirm_button').click( e => {
     	  e.preventDefault()
-    	  location.href = 'update.html'
+    	  
+    	  if(name === $('#name').val() && address === $('#address').val() && password === $('#password').val()){
+    		  alert('변경사항이 없습니다')
+    	  }else {
+    		  alert('변경')
+    		  $.ajax({
+    			  url : '/user/update',
+    			  type : 'put',
+    			  data : JSON.stringify({
+    				  name : $('#name').val(),
+    		    	  userid : $('#userid').text(),
+    		    	  address : $('#address').val(),
+    		    	  ssn : $('#ssn').text(),
+    		    	  password : $('#password').val()}),
+    			  dataType : 'json',
+    			  contentType : 'application/json',
+    			  
+    			  success : d => {
+    				  if(d === 'SUCCESS'){
+    				  	location.href = 'mypage.html'
+    				  }else {
+    					alert('수정 실패했습니다')  
+    					location.href = 'update.html'  
+    				  }
+    				  
+    				  
+    			  },
+    			  
+    			  error : (req, x, err) => {
+    				  alert(req.status)
+    			  }
+    		  })
+    		  
+    	  }
       })
+
+      $('#cancel_button').click( e => {
+    	  e.preventDefault()
+    	  location.href = 'mypage.html'
+      })
+      
+      $('#remove_button').click( e => {
+    	  e.preventDefault()
+    	  $.ajax({
+    		  url : '/user/remove/'+sessionStorage.getItem('userid'),
+    		  type : 'delete',
+    		  dataType : 'json',
+    		  contentType : 'application/json',
+    		  
+    		  success : d => {
+    			  if(d === 'SUCCESS'){
+    				  alert('탈퇴되었습니다')
+    				  sessionStorage.setItem('userid',''),
+    				  location.href = '../index.html'
+    			  }
+    		  }
+    	  })
+      })
+    	  
+    	  
+      })
+    	  
+      
+      
+      
       
     </script>
   
