@@ -78,8 +78,8 @@ footer {
 <section>
   <nav>
     <ul>
-      <li><a id="a-first" href="#">Join</a></li>
-      <li><a id="a-second" href="../index.html">Login</a></li>
+      <li><a id="a-first" href="#">등 록</a></li>
+      <li><a id="a-second" href="../index.html">접 속</a></li>
     </ul>
   </nav>
   
@@ -95,8 +95,8 @@ footer {
    	<input id="ssn" type="text"><br>
    	<label>ADDRESS</label><br>
    	<input id="address" type="text"><br><br>
-   	<input id="join-button" type="button" value="회원가입">
-   	<input id="cancel-button" type="button" value="취소">
+   	<input id="join-button" type="button" value="등 록">
+   	<input id="cancel-button" type="button" value="취 소">
    	
    </form>
   </article>
@@ -137,6 +137,7 @@ $('#join-button').click(e => {
 $('#cancel-button').click(e => {
 	e.preventDefault()
 	alert('취소 버튼 클릭')
+	location.href = "index.html"
 })
 </script>
 </body>
