@@ -14,4 +14,5 @@ public interface UserService {
 	public boolean remove(String userid);
 	public void saveFile(User user);
 	public List<User> readFile();
+	public boolean dupl(String userid);
 }

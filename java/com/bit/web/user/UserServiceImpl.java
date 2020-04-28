@@ -121,8 +121,9 @@ public class UserServiceImpl implements UserService{
 		} catch(Exception e){
 			
 		}
+		User u = null;
 		for(int i = 0; i < list.size(); i++) {
-		User u = new User();
+		u = new User();
 		String [] arr = list.get(i).split(",");
 		u.setName(arr[0]);
 		u.setUserid(arr[1]);
@@ -133,5 +134,24 @@ public class UserServiceImpl implements UserService{
 		}
 		return userlist;
 	}
+	@Override
+	public boolean dupl(String userid) {
+		boolean ok = false;
+		List<User> list = readFile();
+		for(int i = 0; i < list.size(); i++) {
+			if(userid.equals(list.get(i).getUserid())) {
+				ok = true;
+			}
+		}
+		System.out.println(ok);
+		return ok;
+	}
+	/* User id = (User) map.get(userid);
+	 * if(userid.equals(id.getUSerid())){
+	 * ok = true
+	 * }
+	 */
+	
+	
 	
 }

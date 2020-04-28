@@ -63,6 +63,11 @@ public class UserController {
 		return (userService.remove(userid)) ? Messenger.SUCCESS : Messenger.FAIL;
 		
 	}
+	@GetMapping("/dupl/{userid}")
+	public Messenger dupl(@PathVariable String userid) {
+		System.out.println("ss");
+		return (userService.dupl(userid))? Messenger.SUCCESS : Messenger.FAIL;
+	}
 	
 	
 		

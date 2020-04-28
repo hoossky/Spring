@@ -85,9 +85,9 @@ footer {
   <article>
    <form action="#">
    	<label>NAME </label> <br>
-   	<input id="name" type="text"/> <br>
+   	<input id="name" type="text"/><br>
    	<label>ID</label><br>
-   	<input id="userid" type="text"/><br>
+   	<input id="userid" type="text"/> <input id="dupl_button" type="button" value="중복 확인"><br>
    	<label>PASSWORD</label><br>
    	<input id="password" type="text"/><br>
    	<label>SSN</label><br>
@@ -111,6 +111,16 @@ $('#home_a')
 		e.preventDefault()
 		location.href = "../index.html"		
 	})
+	
+$('#dupl_button').click( e => { 
+	e.preventDefault()
+$.getJSON('/user/dupl/'+$('#userid').val(), d => {
+			alert((d === 'SUCCESS')? "중복된 아이디입니다" : "사용 가능한 아이디입니다")
+	})
+})
+
+	
+
 $('#join-button').click( e => {
 	e.preventDefault()
 	$.ajax({
